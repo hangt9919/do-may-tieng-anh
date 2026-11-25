@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đố Mày Tiếng Anh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800;900&family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ TRANG CHỦ ============ -->
+<main id="home" class="screen">
+  <header class="hero">
+    <div class="avatar big" id="homeFace">😏</div>
+    <div>
+      <h1>Đố Mày Tiếng Anh</h1>
+      <p class="bubble-static" id="homeLine">Vô đây tao đố. Sai là tao chửi đó nha.</p>
+    </div>
+  </header>
+
+  <section class="settings">
+    <div class="row">
+      <span class="label">Độ khó</span>
+      <div class="seg" id="levelSeg">
+        <button data-v="1">Dễ</button><button data-v="2">Vừa</button><button data-v="3">Khó</button><button data-v="0">Trộn</button>
+      </div>
+    </div>
+    <div class="row">
+      <span class="label">Kiểu nói</span>
+      <div class="seg" id="toneSeg">
+        <button data-v="roast">😈 Cà khịa (sai là bị chửi)</button><button data-v="kind">😇 Hiền</button>
+      </div>
+    </div>
+    <div class="row">
+      <span class="label">Âm thanh</span>
+      <div class="seg" id="soundSeg"><button data-v="1">Bật</button><button data-v="0">Tắt</button></div>
+    </div>
+    <div class="row">
+      <span class="label">Giọng chửi</span>
+      <div class="seg" id="voiceSeg"><button data-v="1">🗣️ Bật</button><button data-v="0">Tắt</button></div>
+    </div>
+    <div class="row">
+      <span class="label">Dọa giật mình</span>
+      <div class="seg" id="scareSeg"><button data-v="1">👹 Bật</button><button data-v="0">Tắt</button></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Chọn kiểu chơi</h2>
+    <div class="modes" id="modes"></div>
+  </section>
+
+  <section class="ai-box">
+    <h2>🤖 Đề AI theo chủ đề</h2>
+    <p class="muted">Gõ chủ đề bất kỳ, AI soạn 10 câu mới tinh cho mày.</p>
+    <form id="aiForm">
+      <input id="aiTopic" maxlength="120" placeholder="VD: đi siêu thị, phỏng vấn xin việc, tiệm nail, phrasal verbs…" autocomplete="off">
+      <button class="primary" id="aiBtn">Soạn đề</button>
+    </form>
+    <p class="err hidden" id="aiErr"></p>
+  </section>
+
+  <footer class="home-foot">
+    <button class="ghost" id="nbBtn">📒 Sổ lỗi sai (<span id="nbCount">0</span>)</button>
+    <span class="muted" id="bestLine"></span>
+  </footer>
+</main>
+
+<!-- ============ ĐANG CHƠI ============ -->
+<main id="game" class="screen hidden">
+  <div class="hud">
+    <button class="ghost small" id="quitBtn" title="Thoát">✕</button>
+    <div class="lives" id="lives"></div>
+    <div class="progress" id="progressTxt"></div>
+    <div class="streak" id="streakTxt"></div>
+    <div class="score"><span id="scoreTxt">0</span> đ</div>
+  </div>
+  <div class="timer"><div id="timerBar"></div></div>
+
+  <div class="talk">
+    <div class="avatar" id="face">😏</div>
+    <div class="bubble" id="bubble">Câu đầu tiên đây, tập trung vào.</div>
+  </div>
+
+  <div class="card" id="card">
+    <div class="chip" id="chip"></div>
+    <div class="question" id="question"></div>
+    <button class="speak hidden" id="speakBtn">🔊 Nghe lại</button>
+    <div class="options" id="options"></div>
+    <form class="typebox hidden" id="typeForm">
+      <input id="typeInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Gõ đáp án rồi Enter">
+      <button class="primary">Trả lời</button>
+      <p class="hint">Mẹo: tắt bộ gõ tiếng Việt khi gõ tiếng Anh.</p>
+    </form>
+    <div class="tools">
+      <button class="ghost small" id="fiftyBtn">🆘 50:50 (còn 1)</button>
+    </div>
+  </div>
+
+  <div class="explain hidden" id="explain">
+    <div id="explainTxt"></div>
+    <button class="primary" id="nextBtn">Câu tiếp ➜ <span class="kbd">Enter</span></button>
+  </div>
+  <div class="pop" id="pop"></div>
+  <div class="meme hidden" id="meme"><div class="meme-box">
+    <div class="meme-top" id="memeTop"></div><div class="meme-emo" id="memeEmo"></div><div class="meme-bot" id="memeBot"></div>
+  </div></div>
+</main>
+
+<!-- ============ KẾT QUẢ ============ -->
+<main id="end" class="screen hidden">
+  <div class="result">
+    <div class="avatar big" id="endFace">🤬</div>
+    <div class="rank" id="rank"></div>
+    <p class="bubble-static" id="endLine"></p>
+    <div class="stats" id="stats"></div>
+    <div class="actions">
+      <button class="primary" id="againBtn">Chơi lại</button>
+      <button class="ghost" id="homeBtn">Trang chủ</button>
+    </div>
+  </div>
+  <section id="wrongWrap">
+    <h2>Mấy câu mày làm sai</h2>
+    <div id="wrongList"></div>
+  </section>
+</main>
+
+<!-- ============ SỔ LỖI ============ -->
+<main id="notebook" class="screen hidden">
+  <div class="nb-head">
+    <button class="ghost" id="nbBack">← Quay lại</button>
+    <h2>📒 Sổ lỗi sai</h2>
+    <button class="primary" id="nbPlay">Ôn lại ngay</button>
+  </div>
+  <p class="muted">Câu nào sai sẽ vào đây. Ôn lại mà trả lời đúng thì câu đó tự xóa khỏi sổ.</p>
+  <div id="nbList"></div>
+  <button class="ghost danger" id="nbClear">Xóa hết sổ</button>
+</main>
+
+<script src="questions.js"></script>
+<script src="lines.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
